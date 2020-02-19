@@ -26,12 +26,13 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
+  int questionNumber = 0;
   List<String> questions = [
     'You can lead a cow down stairs but not up stairs.',
     'Approximately one quarter of human bones are in the feet.',
     'A slug\'s blood is green.'
   ];
-  int questionNumber = 0;
+  List<bool> responses = [false, true, true];
 
   @override
   Widget build(BuildContext context) {
@@ -69,10 +70,24 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
+                bool userIsRight = responses[questionNumber] == true;
+
                 setState(() {
                   questionNumber++;
-                  if (questionNumber >= questions.length) {
-                    questionNumber = 0;
+                  if (userIsRight && questionNumber < questions.length) {
+                    scoreKeeper.add(
+                      Icon(
+                        Icons.check,
+                        color: Colors.green,
+                      ),
+                    );
+                  } else {
+                    scoreKeeper.add(
+                      Icon(
+                        Icons.close,
+                        color: Colors.red,
+                      ),
+                    );
                   }
                 });
               },
@@ -92,10 +107,24 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
+                bool userIsRight = responses[questionNumber] == false;
+
                 setState(() {
                   questionNumber++;
-                  if (questionNumber >= questions.length) {
-                    questionNumber = 0;
+                  if (userIsRight && questionNumber < questions.length) {
+                    scoreKeeper.add(
+                      Icon(
+                        Icons.check,
+                        color: Colors.green,
+                      ),
+                    );
+                  } else {
+                    scoreKeeper.add(
+                      Icon(
+                        Icons.close,
+                        color: Colors.red,
+                      ),
+                    );
                   }
                 });
               },
