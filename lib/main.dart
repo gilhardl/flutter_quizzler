@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quizzler/question.dart';
 
 void main() => runApp(Quizzler());
 
@@ -25,6 +26,22 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  int questionNumber = 0;
+  List<Question> questions = [
+    Question(
+      text: 'You can lead a cow down stairs but not up stairs.',
+      answer: false,
+    ),
+    Question(
+      text: 'Approximately one quarter of human bones are in the feet.',
+      answer: true,
+    ),
+    Question(
+      text: 'A slug\'s blood is green.',
+      answer: true,
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -37,7 +54,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                'This is where the question text will go.',
+                questions[questionNumber].text,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -61,7 +78,9 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                //The user picked true.
+                setState(() {
+                  questionNumber++;
+                });
               },
             ),
           ),
@@ -79,19 +98,33 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                //The user picked false.
+                setState(() {
+                  questionNumber++;
+                });
               },
             ),
           ),
         ),
-        //TODO: Add a Row here as your score keeper
+        SizedBox(
+          height: 20.0,
+          child: Row(
+            children: <Widget>[
+              Icon(
+                Icons.check,
+                color: Colors.green,
+              ),
+              Icon(
+                Icons.check,
+                color: Colors.green,
+              ),
+              Icon(
+                Icons.close,
+                color: Colors.red,
+              ),
+            ],
+          ),
+        )
       ],
     );
   }
 }
-
-/*
-question1: 'You can lead a cow down stairs but not up stairs.', false,
-question2: 'Approximately one quarter of human bones are in the feet.', true,
-question3: 'A slug\'s blood is green.', true,
-*/
