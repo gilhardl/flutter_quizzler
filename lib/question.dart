@@ -2,5 +2,8 @@ class Question {
   String text;
   bool answer;
 
-  Question({this.text, this.answer}) {}
+  Question(text, answer) {
+    this.text = text;
+    this.answer = answer;
+  }
 }
