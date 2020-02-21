@@ -43,4 +43,8 @@ class Quizz {
   bool checkQuestionAnswer(answer) {
     return questions[questionNumber].answer == answer;
   }
+
+  bool isFinished() => questionNumber == questions.length - 1;
+
+  void reset() => questionNumber = 0;
 }

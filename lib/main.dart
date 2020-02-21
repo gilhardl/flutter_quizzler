@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quizzler/quizz.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 void main() => runApp(Quizzler());
 
@@ -36,7 +37,38 @@ class _QuizPageState extends State<QuizPage> {
       } else {
         scoreKeeper.add(Icon(Icons.close, color: Colors.red));
       }
+    });
+
+    if (quizz.isFinished()) {
+      Alert(
+        context: context,
+        type: AlertType.info,
+        title: "Finished !",
+        desc: "You have reached the end of the quizz",
+        buttons: [
+          DialogButton(
+            child: Text(
+              "RESET",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            onPressed: () {
+              resetQuizz();
+              Navigator.pop(context);
+            },
+            width: 120,
+          )
+        ],
+        closeFunction: () => resetQuizz(),
+      ).show();
+    } else {
       quizz.nextQuestion();
+    }
+  }
+
+  void resetQuizz() {
+    setState(() {
+      quizz.reset();
+      scoreKeeper = [];
     });
   }
 
